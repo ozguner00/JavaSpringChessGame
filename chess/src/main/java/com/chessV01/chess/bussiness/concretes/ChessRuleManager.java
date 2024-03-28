@@ -1,7 +1,7 @@
 package com.chessV01.chess.bussiness.concretes;
 
 import com.chessV01.chess.bussiness.abstracts.ChessRuleService;
-import com.chessV01.chess.entities.Piece;
+import com.chessV01.chess.entities.concretes.Piece;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -44,7 +44,7 @@ public class ChessRuleManager implements ChessRuleService {
 
     public boolean isDifferentColourOrNull(Piece piece, Piece targetSquarePiece) {
         // Gidilen hücrede farklı renkte bir taş var mı veya hedef hücre boş mu kontrol et
-        return targetSquarePiece == null || targetSquarePiece.getColour() != piece.getColour();
+        return targetSquarePiece == null || targetSquarePiece.getColor() != piece.getColor();
     }
 
     private void applyPawnRules(Piece piece) {

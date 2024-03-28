@@ -1,5 +1,6 @@
-package com.chessV01.chess.entities;
+package com.chessV01.chess.entities.concretes;
 
+import com.chessV01.chess.entities.concretes.Player;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

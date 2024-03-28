@@ -1,10 +1,8 @@
 package com.chessV01.chess.bussiness.concretes;
 
 import com.chessV01.chess.bussiness.abstracts.GameService;
-import com.chessV01.chess.entities.Game;
-import com.chessV01.chess.entities.Piece;
-import com.chessV01.chess.entities.Player;
-import com.chessV01.chess.model.Colour;
+import com.chessV01.chess.entities.concretes.Game;
+import com.chessV01.chess.entities.concretes.Player;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.chessV01.chess.entities;
+package com.chessV01.chess.entities.concretes;
 
 import jakarta.persistence.*;
 import lombok.Data;

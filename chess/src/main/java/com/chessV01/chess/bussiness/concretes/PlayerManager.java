@@ -1,7 +1,7 @@
 package com.chessV01.chess.bussiness.concretes;
 
 import com.chessV01.chess.bussiness.abstracts.PlayerService;
-import com.chessV01.chess.entities.Player;
+import com.chessV01.chess.entities.concretes.Player;
 import com.chessV01.chess.model.Color;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

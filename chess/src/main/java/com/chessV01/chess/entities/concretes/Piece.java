@@ -1,4 +1,4 @@
-package com.chessV01.chess.entities;
+package com.chessV01.chess.entities.concretes;
 
 import com.chessV01.chess.model.Color;
 import com.chessV01.chess.model.PieceType;
@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class Piece {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "sourceX")
     private int sourceX;

@@ -1,4 +1,4 @@
-package com.chessV01.chess.entities;
+package com.chessV01.chess.entities.concretes;
 
 import com.chessV01.chess.model.Color;
 import jakarta.persistence.*;
