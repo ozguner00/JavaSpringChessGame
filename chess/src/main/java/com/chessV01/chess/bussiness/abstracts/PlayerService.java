@@ -1,6 +1,7 @@
 package com.chessV01.chess.bussiness.abstracts;
 
 import com.chessV01.chess.entities.DTOs.PlayerDTO;
+import com.chessV01.chess.entities.concretes.Player;
 import com.chessV01.chess.model.Color;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface PlayerService {
     PlayerDTO editPlayerScore(Long id, int newScore);
 
     List<PlayerDTO> getTop10Players();
+
+    Player getPlayerById(Long playerId);
 }

@@ -7,7 +7,6 @@ import com.chessV01.chess.entities.concretes.BrokenPiece;
 import com.chessV01.chess.entities.concretes.Piece;
 import com.chessV01.chess.model.Color;
 import com.chessV01.chess.model.PieceType;
-import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,8 +25,6 @@ public class PieceManager implements PieceService {
         this.pieceRepository = pieceRepository;
         this.brokenPieceRepository = brokenPieceRepository;
     }
-/* //First Create
-    @PostConstruct
     public void initializePieces() {
         List<Piece> pieces = new ArrayList<>();
 
@@ -80,7 +77,7 @@ public class PieceManager implements PieceService {
 // Tüm taşları veritabanına kaydet
         pieceRepository.saveAll(pieces);
 
-    }*/
+    }
 
     public void movePieceToBrokenPiecesById(Long pieceId) {
         // Veritabanından Piece'i al
@@ -101,6 +98,7 @@ public class PieceManager implements PieceService {
             brokenPieceRepository.save(brokenPiece);
         }
     }
+
 
 
 }

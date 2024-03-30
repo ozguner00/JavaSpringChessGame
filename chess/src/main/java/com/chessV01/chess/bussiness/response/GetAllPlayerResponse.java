@@ -12,5 +12,6 @@ public class GetAllPlayerResponse {
     public List<PlayerDTO> createResponse(List<Player> playerList) {
         return playerList.stream().map(PlayerDTO::new).collect(Collectors.toList());
     }
+
 }
 

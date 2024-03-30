@@ -73,4 +73,8 @@ public class PlayerManager implements PlayerService {
         return topPlayers.stream().map(PlayerDTO::new).collect(Collectors.toList());
     }
 
+    @Override
+    public Player getPlayerById(Long playerId){
+        return playerRepository.findById(playerId).orElse(null);
+    }
 }

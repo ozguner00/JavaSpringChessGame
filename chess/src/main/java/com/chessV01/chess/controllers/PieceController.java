@@ -31,4 +31,6 @@ public class PieceController {
                     .body("Failed to move piece to broken pieces: " + e.getMessage());
         }
     }
+
+
 }
