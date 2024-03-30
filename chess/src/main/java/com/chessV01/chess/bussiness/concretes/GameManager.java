@@ -1,57 +1,33 @@
 package com.chessV01.chess.bussiness.concretes;
 
 import com.chessV01.chess.bussiness.abstracts.GameService;
+import com.chessV01.chess.dataAccess.abstracts.GameRepository;
 import com.chessV01.chess.entities.concretes.Game;
 import com.chessV01.chess.entities.concretes.Player;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 @Service
 @Slf4j
-public class GameManager implements GameService{
+public class GameManager implements GameService {
 
-    private List<Game> games;
+    private final GameRepository gameRepository;
 
-    public GameManager() {
-        this.games = new ArrayList<>();
+    @Autowired
+    public GameManager(GameRepository gameRepository) {
+        this.gameRepository = gameRepository;
     }
 
-    public void createGame(Player player1, Player player2) {
-        // Yeni bir oyun oluştur ve oyuncuları ekleyerek listeye ekle
+    @Override
+    public Game createGame(Player player1, Player player2) {
         Game game = new Game();
         game.setPlayer1(player1);
         game.setPlayer2(player2);
+        return gameRepository.save(game);
     }
 
-    public List<Game> getAllGames() {
-        // Tüm oyunları getir
-        return games;
-    }
 
-    public Game getGameById(Long id) {
-        // Belirli bir ID'ye sahip oyunu getir
-        for (Game game : games) {
-            if (game.getId().equals(id)) {
-                return game;
-            }
-        }
-        return null; // Belirli bir ID'ye sahip oyun bulunamazsa null döndür
-    }
 
-    public void updateGame(Game game) {
-        // Bir oyunu güncelle
-        // (Gerekirse)
-    }
-
-    public void deleteGame(Long id) {
-        // Belirli bir ID'ye sahip oyunu sil
-        for (Game game : games) {
-            if (game.getId().equals(id)) {
-                games.remove(game);
-                break;
-            }
-        }
-    }
 }
+

@@ -8,17 +8,15 @@ import lombok.Data;
 @Data
 public class PieceDTO {
     private Long id;
-    private int sourceX;
-    private int sourceY;
-    private PieceType type;
+    private int positionX;
+    private int positionY;
     private Color color;
     private PieceType pieceType;
 
     public PieceDTO(Piece piece) {
         this.id = piece.getId();
-        this.sourceX = piece.getSourceX();
-        this.sourceY = piece.getSourceY();
-        this.type = piece.getType();
+        this.positionX = piece.getPositionX();
+        this.positionY = piece.getPositionY();
         this.color = piece.getColor();
         this.pieceType = piece.getPieceType();
     }

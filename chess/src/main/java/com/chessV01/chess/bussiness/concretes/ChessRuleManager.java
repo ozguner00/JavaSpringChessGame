@@ -12,7 +12,7 @@ public class ChessRuleManager implements ChessRuleService {
     // Diğer metotlar burada
 
     public void applySpecialRules(Piece piece) {
-        switch (piece.getType()) {
+        switch (piece.getPieceType()) {
             case PAWN:
                 applyPawnRules(piece);
                 break;
@@ -32,7 +32,6 @@ public class ChessRuleManager implements ChessRuleService {
                 applyKingRules(piece);
                 break;
             default:
-                // Bilinmeyen taş türü
                 break;
         }
     }
@@ -42,9 +41,14 @@ public class ChessRuleManager implements ChessRuleService {
         return targetX >= 0 && targetX <= 7 && targetY >= 0 && targetY <= 7;
     }
 
-    public boolean isDifferentColourOrNull(Piece piece, Piece targetSquarePiece) {
-        // Gidilen hücrede farklı renkte bir taş var mı veya hedef hücre boş mu kontrol et
-        return targetSquarePiece == null || targetSquarePiece.getColor() != piece.getColor();
+    // Hedef hücre boş mu kontrol eden fonksiyon
+    public boolean isSquareEmpty(Piece targetSquarePiece) {
+        return targetSquarePiece == null;
+    }
+
+    // Farklı renkte taş var mı kontrol eden fonksiyon.
+    public boolean isDifferentColor(Piece piece, Piece targetSquarePiece) {
+        return targetSquarePiece != null && targetSquarePiece.getColor() != piece.getColor();
     }
 
     private void applyPawnRules(Piece piece) {

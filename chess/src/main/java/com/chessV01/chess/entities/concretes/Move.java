@@ -24,6 +24,4 @@ public class Move {
     @Column(name = "piece.id")
     private Long pieceId;
 
-
-
 }

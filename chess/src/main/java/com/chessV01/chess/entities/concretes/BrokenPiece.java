@@ -3,14 +3,14 @@ package com.chessV01.chess.entities.concretes;
 import com.chessV01.chess.model.Color;
 import com.chessV01.chess.model.PieceType;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Table(name = "pieces")
-@NoArgsConstructor
-public class Piece {
+@Table(name = "brokenPieces")
+public class BrokenPiece{
+
     @Id
     private Long id;
 
@@ -28,12 +28,4 @@ public class Piece {
     @Column(name = "piece_type")
     private PieceType pieceType;
 
-    public Piece(int positionX, int positionY, Color color, PieceType pieceType) {
-        this.positionX = positionX;
-        this.positionY = positionY;
-        this.color = color;
-        this.pieceType = pieceType;
-    }
 }
-
-
