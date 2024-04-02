@@ -13,15 +13,23 @@ public class Move {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "player.id")
-    private Player player;
+    @Column(name = "game_id")
+    private Long gameId;
 
-    @ManyToOne
-    @JoinColumn(name = "game.id")
-    private Game game;
+    @Column(name = "player_id")
+    private Long playerId;
 
-    @Column(name = "piece.id")
+    @Column(name = "piece_id")
     private Long pieceId;
 
+    @Column(name = "destination")
+    private String destination;
+
+
+    public Move(Long gameId, Long playerId, Long pieceId, String destination) {
+        this.playerId = playerId;
+        this.gameId = gameId;
+        this.pieceId = pieceId;
+        this.destination = destination;
+    }
 }

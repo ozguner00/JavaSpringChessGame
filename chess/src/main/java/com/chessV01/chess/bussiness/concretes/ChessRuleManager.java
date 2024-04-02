@@ -1,15 +1,15 @@
 package com.chessV01.chess.bussiness.concretes;
 
 import com.chessV01.chess.bussiness.abstracts.ChessRuleService;
+import com.chessV01.chess.entities.DTOs.PieceDTO;
 import com.chessV01.chess.entities.concretes.Piece;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
-@Slf4j
 public class ChessRuleManager implements ChessRuleService {
 
-    // Diğer metotlar burada
+
 
     public void applySpecialRules(Piece piece) {
         switch (piece.getPieceType()) {
@@ -35,6 +35,10 @@ public class ChessRuleManager implements ChessRuleService {
                 break;
         }
     }
+
+    public boolean validateMove(PieceDTO piece, int targetX, int targetY){ //test
+        return true;
+    }
     public boolean isMoveInBoardBounds(int targetX, int targetY) {
         // Tahtanın sınırlarını aşıp aşmadığını kontrol et
         // Örneğin, 1 ile 8 arasındaki sınırları kontrol etmek için:
@@ -47,10 +51,14 @@ public class ChessRuleManager implements ChessRuleService {
     }
 
     // Farklı renkte taş var mı kontrol eden fonksiyon.
-    public boolean isDifferentColor(Piece piece, Piece targetSquarePiece) {
+   /* public boolean isDifferentColor(PieceDTO piece, Piece targetSquarePiece) {
         return targetSquarePiece != null && targetSquarePiece.getColor() != piece.getColor();
-    }
+    }?/
+    */
 
+    public boolean isDifferentColor(){
+        return true;
+    }
     private void applyPawnRules(Piece piece) {
         // Piyon için özel kuralları uygula
     }

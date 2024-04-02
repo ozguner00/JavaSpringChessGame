@@ -1,8 +1,10 @@
 package com.chessV01.chess.bussiness.concretes;
 
 import com.chessV01.chess.bussiness.abstracts.PieceService;
+import com.chessV01.chess.bussiness.requests.EditPieceRequest;
 import com.chessV01.chess.dataAccess.abstracts.BrokenPieceRepository;
 import com.chessV01.chess.dataAccess.abstracts.PieceRepository;
+import com.chessV01.chess.entities.DTOs.PieceDTO;
 import com.chessV01.chess.entities.concretes.BrokenPiece;
 import com.chessV01.chess.entities.concretes.Piece;
 import com.chessV01.chess.model.Color;
@@ -97,8 +99,42 @@ public class PieceManager implements PieceService {
             brokenPiece.setPieceType(piece.getPieceType());
             brokenPieceRepository.save(brokenPiece);
         }
+
     }
 
+    public PieceDTO getPieceById(Long pieceId) {
+        // Veritabanından PieceDTO'yu al
+        Piece piece = pieceRepository.findById(pieceId).orElse(null);
+        if (piece != null) {
+            // Piece nesnesini PieceDTO'ya dönüştür
+            return new PieceDTO(piece);
+        }
+        return null;
+    }
+
+    public void editPiece(EditPieceRequest editPieceRequest) {
+        Long pieceId = editPieceRequest.getPieceId();
+        int newX = editPieceRequest.getNewX();
+        int newY = editPieceRequest.getNewY();
+
+        // İlgili taşı veritabanından bul
+        Piece piece = pieceRepository.findById(pieceId).orElse(null);
+        if (piece == null) {
+            // Taş bulunamadı, uygun bir hata işle
+            throw new RuntimeException("Piece not found with id: " + pieceId);
+        }
+
+        // Yeni koordinatları ayarla
+        piece.setPositionX(newX);
+        piece.setPositionY(newY);
+
+        // Güncellenmiş taşı veritabanına kaydet
+        pieceRepository.save(piece);
+    }
+
+    public void deleteAllPieces() {
+        pieceRepository.deleteAll();
+    }
 
 
 }

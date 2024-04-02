@@ -6,14 +6,16 @@ import lombok.Data;
 @Data
 public class MoveDTO {
     private Long id;
-    private Long playerId;
     private Long gameId;
     private Long pieceId;
+    private Long playerID;
+    private String destination;
 
     public MoveDTO(Move move) {
         this.id = move.getId();
-        this.playerId = move.getPlayer() != null ? move.getPlayer().getId() : null;
-        this.gameId = move.getGame() != null ? move.getGame().getId() : null;
+        this.gameId = move.getGameId();
         this.pieceId = move.getPieceId();
+        this.playerID = move.getPlayerId();
+        this.destination = move.getDestination();
     }
 }
