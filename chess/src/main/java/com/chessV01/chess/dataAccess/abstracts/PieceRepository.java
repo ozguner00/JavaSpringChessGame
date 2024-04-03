@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PieceRepository extends JpaRepository<Piece,Long> {
+    Piece findByPositionXAndPositionY(int positionx, int positiony);
 }

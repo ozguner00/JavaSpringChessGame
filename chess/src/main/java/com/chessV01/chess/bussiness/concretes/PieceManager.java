@@ -136,5 +136,11 @@ public class PieceManager implements PieceService {
         pieceRepository.deleteAll();
     }
 
+    @Override
+    public Piece getPieceByCoordinates(int x, int y) {
+        // Veritabanından verilen koordinatlarda bir taşı getir
+        return pieceRepository.findByPositionXAndPositionY(x, y);
+    }
+
 
 }

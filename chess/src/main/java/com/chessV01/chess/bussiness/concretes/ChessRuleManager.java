@@ -3,13 +3,13 @@ package com.chessV01.chess.bussiness.concretes;
 import com.chessV01.chess.bussiness.abstracts.ChessRuleService;
 import com.chessV01.chess.entities.DTOs.PieceDTO;
 import com.chessV01.chess.entities.concretes.Piece;
+import com.chessV01.chess.model.Board;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ChessRuleManager implements ChessRuleService {
-
-
 
     public void applySpecialRules(Piece piece) {
         switch (piece.getPieceType()) {
