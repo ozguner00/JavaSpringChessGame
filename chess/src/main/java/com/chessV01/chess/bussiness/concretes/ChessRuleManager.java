@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ChessRuleManager implements ChessRuleService {
+    // Board hareket kontrolü için burada kullanılacak.
+    // Board ile hareket kontrolü yaptıktan sonra hareket eden taşı kaldır yeni yerine ekle, kırılan taşı kaldır.
+    // Tahta için her seferinde database bağlanma edit işlemleri burada yap.
 
     public void applySpecialRules(Piece piece) {
         switch (piece.getPieceType()) {
