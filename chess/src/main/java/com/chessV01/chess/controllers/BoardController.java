@@ -28,7 +28,7 @@ public class BoardController {
     }
 
     @GetMapping("/get2")
-    public ResponseEntity<Piece> getBoard2() {
+    public ResponseEntity<Piece> getBoard2() { //TEST
         Board board = boardManager.getBoard();
         Piece piece = board.getPieces()[1][1];
         return ResponseEntity.status(HttpStatus.OK).body(piece);

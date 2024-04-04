@@ -5,7 +5,6 @@ import com.chessV01.chess.bussiness.requests.EditPieceRequest;
 import com.chessV01.chess.dataAccess.abstracts.MoveRepository;
 import com.chessV01.chess.entities.DTOs.PieceDTO;
 import com.chessV01.chess.entities.concretes.Move;
-import com.chessV01.chess.entities.concretes.Piece;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +27,7 @@ public class MoveManager implements MoveService {
         // Önce hamleyi kontrol et
         PieceDTO pieceDTO = pieceManager.getPieceById(pieceID);
         boolean isValidMove = chessRuleManager.validateMove(pieceDTO, targetX, targetY);
-        boolean isDifferenColor = chessRuleManager.isDifferentColor();
+        boolean isDifferenColor = chessRuleManager.isDifferentColor(pieceDTO,targetX,targetY);
         if (isValidMove) {
             // Eğer hamle geçerliyse, hamleyi veritabanına kaydet
             String destination = "" + pieceDTO.getPieceType() + pieceDTO.getPositionX() +
@@ -36,7 +35,7 @@ public class MoveManager implements MoveService {
             Move move = new Move(playerId, gameId, pieceID, destination);
             moveRepository.save(move);
             if(isDifferenColor){
-                Long silinenTasID = 5L;
+                Long silinenTasID = pieceManager.getPieceByCoordinates(targetX,targetY).getId();
                 pieceManager.movePieceToBrokenPiecesById(silinenTasID);
             }
             EditPieceRequest editPieceRequest = new EditPieceRequest(pieceID,targetX,targetY);

@@ -4,86 +4,101 @@ import com.chessV01.chess.bussiness.abstracts.ChessRuleService;
 import com.chessV01.chess.entities.DTOs.PieceDTO;
 import com.chessV01.chess.entities.concretes.Piece;
 import com.chessV01.chess.model.Board;
+import com.chessV01.chess.model.Color;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ChessRuleManager implements ChessRuleService {
+    private BoardManager boardManager;
+
+    @Autowired
+    public ChessRuleManager(BoardManager boardManager){
+        this.boardManager = boardManager;
+    }
+
     // Board hareket kontrolü için burada kullanılacak.
     // Board ile hareket kontrolü yaptıktan sonra hareket eden taşı kaldır yeni yerine ekle, kırılan taşı kaldır.
     // Tahta için her seferinde database bağlanma edit işlemleri burada yap.
 
-    public void applySpecialRules(Piece piece) {
-        switch (piece.getPieceType()) {
-            case PAWN:
-                applyPawnRules(piece);
-                break;
-            case ROOK:
-                applyRookRules(piece);
-                break;
-            case KNIGHT:
-                applyKnightRules(piece);
-                break;
-            case BISHOP:
-                applyBishopRules(piece);
-                break;
-            case QUEEN:
-                applyQueenRules(piece);
-                break;
-            case KING:
-                applyKingRules(piece);
-                break;
-            default:
-                break;
+    public boolean validateMove(PieceDTO pieceDTO, int targetX, int targetY){ //test
+        Piece targetPiece = boardManager.getBoard().getPieces()[targetX][targetY];
+
+        boolean isMoveInBoard = isMoveInBoardBounds(targetX,targetY); // tahta sınırlarına bak.
+        boolean isDifferentColor = isDifferentColor(pieceDTO,targetX,targetY); // farklı renkte mi
+        boolean isSquareEmpty = isSquareEmpty(boardManager.getBoard().getPieces()[targetX][targetY]); // Son kare boş mu?
+
+        if(isMoveInBoard && (isSquareEmpty || isDifferentColor)){
+            if(applySpecialRules(pieceDTO)){
+                //Son aşamada hareket doğruysa, tasarruf için database bağlanmak yerine boardı elle değiştiriyoruz.
+                this.boardManager.getBoard().getPieces()[targetX][targetY] = this.boardManager.getBoard().getPieces()[pieceDTO.getPositionX()][pieceDTO.getPositionY()];
+                return true;
+            }
+            return applySpecialRules(pieceDTO);
         }
+        return false;
     }
 
-    public boolean validateMove(PieceDTO piece, int targetX, int targetY){ //test
-        return true;
+    public void updateBoard(Piece piece){
+
     }
-    public boolean isMoveInBoardBounds(int targetX, int targetY) {
-        // Tahtanın sınırlarını aşıp aşmadığını kontrol et
-        // Örneğin, 1 ile 8 arasındaki sınırları kontrol etmek için:
+
+    public boolean isMoveInBoardBounds(int targetX, int targetY) { // Tahtanın sınırlarını aşıp aşmadığını kontrol eder.
         return targetX >= 0 && targetX <= 7 && targetY >= 0 && targetY <= 7;
     }
 
-    // Hedef hücre boş mu kontrol eden fonksiyon
-    public boolean isSquareEmpty(Piece targetSquarePiece) {
-        return targetSquarePiece == null;
+    public boolean isSquareEmpty(Piece targetSquarePiece) { // Hedef hücre boş mu kontrol eder.
+        if(targetSquarePiece == null) return true;
+        return false;
     }
 
-    // Farklı renkte taş var mı kontrol eden fonksiyon.
-   /* public boolean isDifferentColor(PieceDTO piece, Piece targetSquarePiece) {
-        return targetSquarePiece != null && targetSquarePiece.getColor() != piece.getColor();
-    }?/
-    */
-
-    public boolean isDifferentColor(){
+    public boolean isDifferentColor(PieceDTO pieceDTO, int targetX, int targetY){ // hedef hücre ve oynanan taş.
         return true;
     }
-    private void applyPawnRules(Piece piece) {
-        // Piyon için özel kuralları uygula
+
+    public boolean applySpecialRules(PieceDTO piece) {
+        switch (piece.getPieceType()) {
+            case PAWN:
+                return applyPawnRules(piece);
+            case ROOK:
+                return applyRookRules(piece);
+            case KNIGHT:
+                return applyKnightRules(piece);
+            case BISHOP:
+                return applyBishopRules(piece);
+            case QUEEN:
+                return applyQueenRules(piece);
+            case KING:
+                return applyKingRules(piece);
+            default:
+                return false;
+        }
     }
 
-    private void applyRookRules(Piece piece) {
-        // Kale için özel kuralları uygula
+    private boolean applyPawnRules(PieceDTO piece) {
+        return true;
     }
 
-    private void applyKnightRules(Piece piece) {
-        // At için özel kuralları uygula
+    private boolean applyRookRules(PieceDTO piece) {
+        return true;
     }
 
-    private void applyBishopRules(Piece piece) {
-        // Fil için özel kuralları uygula
+    private boolean applyKnightRules(PieceDTO piece) {
+        return true;
     }
 
-    private void applyQueenRules(Piece piece) {
-        // Vezir için özel kuralları uygula
+    private boolean applyBishopRules(PieceDTO piece) {
+        return true;
     }
 
-    private void applyKingRules(Piece piece) {
-        // Şah için özel kuralları uygula
+    private boolean applyQueenRules(PieceDTO piece) {
+        return true;
+    }
+
+    private boolean applyKingRules(PieceDTO piece) {
+        return true;
     }
 }
 
